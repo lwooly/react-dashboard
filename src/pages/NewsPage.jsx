@@ -1,17 +1,18 @@
 import React, {useState, useEffect, useCallback, useContext} from "react";
 import { LocationContext } from "../contexts/Location.context";
+import ImgMediaCard from "../components/ImgMediaCard";
+import { buildNewsURL } from "../utilityFns/buildNewsURL";
 
-//state
+
+const NewsPage = () => {
+
+    //state
 const [news, setNews] = useState()
 const [loaded, setLoaded] = useState(false)
 const [loading, setLoading ] = useState(false)
 const [error, setError ] = useState(false) 
 
-
-const {location, fetchLocation} = useContext(LocationContext)
-
-const NewsPage = () => {
-
+    const {location, fetchLocation} = useContext(LocationContext)
     const fetchNews = async (location) => {
 
         if ( loaded || loading || error) {
@@ -20,11 +21,11 @@ const NewsPage = () => {
 
         try {
             setLoading(true)
-            response = await fetch('url')
+            const response = await fetch(buildNewsURL())
             if (!response.ok) {
                 throw response
             }
-            dataNews = await response.json()
+            const dataNews = await response.json()
 
             setNews(dataNews)
             setLoaded(true)
@@ -46,13 +47,13 @@ const NewsPage = () => {
         }
     }, [location])
 
-
+        console.log(news)
 
     return (
         <div>
-            
+            {news && news.articles.map((article, i) => <ImgMediaCard key={i} values={article}/>)}
         </div>
     );
 };
 
-export default NewsPage; } from "react";
+export default NewsPage;

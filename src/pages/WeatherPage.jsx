@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { buildWeatherURL } from "../weatherAPIFns/buildWeatherURL";
+import { buildWeatherURL } from "../utilityFns/buildWeatherURL";
 import BasicCard from "../components/WeatherCard";
 import { LocationContext } from "../contexts/Location.context";
 

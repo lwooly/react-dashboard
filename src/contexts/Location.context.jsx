@@ -5,7 +5,7 @@ export const LocationContext = createContext({
     loading: false,
     loaded: false,
     error: null,
-    location: "start value",
+    location:"",
 })
 
 export const LocationProvider = ({children}) => {
