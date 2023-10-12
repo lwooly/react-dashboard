@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { buildWeatherURL } from "../weatherAPIFns/buildWeatherURL";
 import BasicCard from "../components/WeatherCard";
+import { LocationContext } from "../contexts/Location.context";
 
 
 // const defaultWeather = {
@@ -28,10 +29,14 @@ function WeatherPage () {
     const [loaded, setLoaded] = useState(false);
     const [error , setError] = useState(null);
 
+    //context
+    const {fetchLocation, location} = useContext(LocationContext)
+    console.log(`Location:`, location)
+
   
     // call weather API
    const fetchWeatherData = async () => {
-        const weatherAPIurl = 'http://api.weatherapi.com/v1/current.json?key=c4682eb9d8b740cdb56170046231209&q=50.4109846,-5.0997977&aqi=no' //buildWeatherURL(keyAPI)
+        const weatherAPIurl = buildWeatherURL(location)
         console.log(`loading;`, loading, `loaded: `, loaded, `error:` , error )
         
         if (loading || loaded || error) {
@@ -59,8 +64,14 @@ function WeatherPage () {
     }
     
     useEffect( () => {
-        fetchWeatherData()
+        fetchLocation()
     },[])
+
+    useEffect( () => {
+        if (location) {
+            fetchWeatherData(location)
+        }
+    },[location])
 
     console.log(weatherData)
 

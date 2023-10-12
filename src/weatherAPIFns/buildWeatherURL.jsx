@@ -1,4 +1,6 @@
-export const buildWeatherURL = (keyAPI) => {
+import { WEATHERAPIKEY } from "../settings"
 
-    return `https://api.weatherapi.com/v1/current.json?key=${keyAPI}&q=Bristol&aqi=no`
+export const buildWeatherURL = ( {latitude, longitude}, APIkey = WEATHERAPIKEY,) => {
+    return `http://api.weatherapi.com/v1/current.json?key=${APIkey}&q=${latitude},${longitude}&aqi=no`
+    
 }
