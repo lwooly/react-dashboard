@@ -1,0 +1,2 @@
+  //API keys:
+  const WEATHERAPIKEY = 'c4682eb9d8b740cdb56170046231209'
