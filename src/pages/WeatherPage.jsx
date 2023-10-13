@@ -3,6 +3,7 @@ import { buildWeatherURL } from "../utilityFns/buildWeatherURL";
 import BasicCard from "../components/WeatherCard";
 import { LocationContext } from "../contexts/Location.context";
 import InputWithIcon from "../components/InputWithIcon";
+import LocationForm from "../components/Form/LocationForm";
 
 
 // const defaultWeather = {
@@ -27,21 +28,23 @@ function WeatherPage () {
     //STATE
     const [weatherData, setWeatherData] = useState();
     const [loading, setLoading] = useState(false);
-    const [loaded, setLoaded] = useState(false);
+    const [loaded, setWeatherLoaded] = useState(false);
     const [error , setError] = useState(null);
     const [input, setInput] = useState("London")
 
     //context
     const {fetchLocation, location} = useContext(LocationContext)
-    console.log(`Location:`, location)
+    // console.log(`Location:`, location)
 
     
     // call weather API
    const fetchWeatherData = async () => {
         const weatherAPIurl = buildWeatherURL(location)
-        console.log(`loading;`, loading, `loaded: `, loaded, `error:` , error )
+        // console.log(`loading;`, loading, `loaded: `, loaded, `error:` , error )
         
         if (loading || loaded || error) {
+
+            console.log(`The weather has already been loaded once`)
             return;
         }
 
@@ -55,7 +58,7 @@ function WeatherPage () {
             }
             const data = await response.json()
             setWeatherData(data)
-            setLoaded(true)
+            setWeatherLoaded(true)
 
         } catch (error) {
             console.log(error.message)
@@ -75,12 +78,12 @@ function WeatherPage () {
         }
     },[location])
 
-    console.log(weatherData)
+    // console.log(weatherData)
 
     return (
     <div>
         {weatherData && <BasicCard weatherData={weatherData}/>}
-        <InputWithIcon setInput={setInput} />
+        <LocationForm setWeatherLoaded={setWeatherLoaded} />
 
     </div>
     )

@@ -17,7 +17,7 @@ const bull = (
 
 export default function BasicCard({ weatherData }) {
 
-    console.log(weatherData)
+    // console.log(weatherData)
 
     const { location: { name, country }, current: { condition: { text, icon }, wind_kph, humidity, wind_dir, temp_c } } = weatherData
 

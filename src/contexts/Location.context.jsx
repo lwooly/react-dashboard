@@ -2,6 +2,7 @@ import React, { createContext, useState, useCallback } from "react";
 
 export const LocationContext = createContext({
     fetchLocation: () => { },
+    setLocation: () => {},
     loading: false,
     loaded: false,
     error: null,
@@ -49,6 +50,7 @@ export const LocationProvider = ({children}) => {
         <LocationContext.Provider
             value={{
                 fetchLocation,
+                setLocation,
                 loading,
                 loaded,
                 error,

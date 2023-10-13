@@ -8,21 +8,15 @@ import TextField from '@mui/material/TextField';
 import EditLocationIcon from '@mui/icons-material/EditLocation';
 
 
-export default function InputWithIcon({setInput}) {
-
-    const input = React.useRef()
+export default function InputWithIcon({register}) {
 
     return (
-        <form >
             <Box sx={{ '& > :not(style)': { m: 1 } }}>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <EditLocationIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                    <TextField ref={input} id="input-with-sx" label="Edit location" variant="standard" />
+                    <TextField  id="input-with-sx" label="Edit location" variant="standard" {...register("location")}/>
+                    
                 </Box>
             </Box>
-            <button onClick={(e)=> {
-                e.preventDefault()
-                setInput(input.current.children[1].children[0].value)}}>Submit</button>
-        </form>
     );
 }
