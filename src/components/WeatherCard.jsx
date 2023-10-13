@@ -5,6 +5,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import CircularIndeterminate from './CircularIndeterminate';
+
 
 const bull = (
     <Box
@@ -15,15 +17,19 @@ const bull = (
     </Box>
 );
 
-export default function BasicCard({ weatherData }) {
+export default function WeatherCard({ weatherData, loadingWeather }) {
 
     // console.log(weatherData)
+    let name, country, text, icon, wind_kph, humidity, wind_dir, temp_c;
+    if (weatherData) {
+    ({ location: { name, country }, current: { condition: { text, icon }, wind_kph, humidity, wind_dir, temp_c } } = weatherData)
+    }
 
-    const { location: { name, country }, current: { condition: { text, icon }, wind_kph, humidity, wind_dir, temp_c } } = weatherData
 
     return (
-        <Card sx={{ minWidth: 275 }}>
-            <CardContent>
+        <Card sx={{ minWidth: 275, minHeight: 275, display: 'flex', justifyContent:'center', alignItems: 'center'}}>
+            {!weatherData || loadingWeather ? ( <CircularIndeterminate/> ) : 
+            ( <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     {name} {country}
                 </Typography>
@@ -42,7 +48,7 @@ export default function BasicCard({ weatherData }) {
                 <Typography variant="body2">
                 Humidity: {humidity}%,
                 </Typography>
-            </CardContent>
+            </CardContent> )}
         </Card>
     );
 

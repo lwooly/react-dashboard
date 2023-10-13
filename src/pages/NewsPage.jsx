@@ -2,6 +2,7 @@ import React, {useState, useEffect, useCallback, useContext} from "react";
 import { LocationContext } from "../contexts/Location.context";
 import ImgMediaCard from "../components/ImgMediaCard";
 import { buildNewsURL } from "../utilityFns/buildNewsURL";
+import CircularIndeterminate from "../components/CircularIndeterminate";
 
 
 const NewsPage = () => {
@@ -51,6 +52,7 @@ const [error, setError ] = useState(false)
 
     return (
         <div>
+            {!news && <CircularIndeterminate/>}
             {news && news.articles.map((article, i) => <ImgMediaCard key={i} values={article}/>)}
         </div>
     );

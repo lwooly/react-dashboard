@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import EditLocationIcon from '@mui/icons-material/EditLocation';
 
 
-const LocationForm = ({ setWeatherLoaded }) => {
+const LocationForm = ({ setWeatherLoaded, weatherAPIerror }) => {
     const { setLocation, location, fetchLocation } = useContext(LocationContext)
     const { register, handleSubmit, formState, formState: { errors }, reset, isSubmitting, isDirty, isValid } = useForm()
 
@@ -33,6 +33,21 @@ const LocationForm = ({ setWeatherLoaded }) => {
         fetchLocation()
     }
 
+
+ const getErrorProps = () => {
+    if (weatherAPIerror) {
+        return {error: "error",
+                id: "outlined-error-helper-text",
+                label: "Error",
+                defaultValue: "",
+                helperText: "Invalid location."}
+        } else {
+            return {};
+        }
+    }
+    
+ 
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -43,7 +58,13 @@ const LocationForm = ({ setWeatherLoaded }) => {
                             <IconButton onClick={handleCurrentLocationClick}>
                                 <EditLocationIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
                             </IconButton>
-                            <TextField id="input-with-sx" label="Edit location" variant="standard" {...register("location")} />
+                            <TextField 
+                            id="input-with-sx" 
+                            label="Edit location" 
+                            variant="standard" 
+                            {...register("location")} 
+                            {...getErrorProps()}
+                            />
                             <IconButton type='submit' sx={{ mr: 1, my: 0.5 }}>
                                 <ArrowForwardIcon />
                             </IconButton>
