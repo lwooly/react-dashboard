@@ -55,7 +55,7 @@ function WeatherPage() {
             const response = await fetch(weatherAPIurl)
 
             // Simulate a longer loading time with a timeout
-            await new Promise(resolve => setTimeout(resolve, 3000)); // 3 seconds delay
+            // await new Promise(resolve => setTimeout(resolve, 3000)); // 3 seconds delay
             if (!response.ok) {
                 throw new Error(`Invalid location`)
             }
