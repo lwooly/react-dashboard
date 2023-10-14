@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import EditLocationIcon from '@mui/icons-material/EditLocation';
 
 
-const LocationForm = ({ setWeatherLoaded, weatherAPIerror }) => {
+const LocationForm = ({ setWeatherLoaded, setLoadingWeather, locationError }) => {
     const { setLocation, location, fetchLocation } = useContext(LocationContext)
     const { register, handleSubmit, formState, formState: { errors }, reset, isSubmitting, isDirty, isValid } = useForm()
 
@@ -30,13 +30,14 @@ const LocationForm = ({ setWeatherLoaded, weatherAPIerror }) => {
     const handleCurrentLocationClick = () => {
         //return user to home location
         setWeatherLoaded(false)
+        setLoadingWeather(true)
         fetchLocation()
     }
 
 
  const getErrorProps = () => {
-    if (weatherAPIerror) {
-        return {error: "error",
+    if (locationError) {
+        return {error: true,
                 id: "outlined-error-helper-text",
                 label: "Error",
                 defaultValue: "",
@@ -61,7 +62,8 @@ const LocationForm = ({ setWeatherLoaded, weatherAPIerror }) => {
                             <TextField 
                             id="input-with-sx" 
                             label="Edit location" 
-                            variant="standard" 
+                            variant="standard"
+                            autoComplete='off'
                             {...register("location")} 
                             {...getErrorProps()}
                             />

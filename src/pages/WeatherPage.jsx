@@ -29,8 +29,8 @@ function WeatherPage() {
     const [weatherData, setWeatherData] = useState();
     const [loadingWeather, setLoadingWeather] = useState(false);
     const [loaded, setWeatherLoaded] = useState(false);
-    const [error, setError] = useState(null);
-    const [input, setInput] = useState("London")
+    const [locationError, setLocationError] = useState(null);
+    const [apiError, setApiError] = useState(null);
 
     //context
     const { fetchLocation, location } = useContext(LocationContext)
@@ -40,11 +40,10 @@ function WeatherPage() {
     // call weather API
     const fetchWeatherData = async () => {
         const weatherAPIurl = buildWeatherURL(location)
-        // console.log(`loading;`, loading, `loaded: `, loaded, `error:` , error )
+        console.log(`loading;`, loadingWeather, `loaded: `, loaded, `error:`, apiError)
 
-        if (loadingWeather || loaded || error) {
-
-            console.log(`The weather has already been loaded once`)
+        if (loaded) {
+            console.log(`Loaded already: ${loaded}`)
             return;
         }
 
@@ -55,18 +54,35 @@ function WeatherPage() {
             const response = await fetch(weatherAPIurl)
 
             // Simulate a longer loading time with a timeout
-            // await new Promise(resolve => setTimeout(resolve, 3000)); // 3 seconds delay
+            await new Promise(resolve => setTimeout(resolve, 500)); // 0.5 seconds delay
             if (!response.ok) {
-                throw new Error(`Invalid location`)
+                throw response
             }
             const data = await response.json()
             setWeatherData(data)
-            setError(null);
+            //set error codes to null
+            setApiError(null);
+            setLocationError(null)
             setWeatherLoaded(true)
 
         } catch (error) {
-            console.log(error.message)
-            setError(error.message)
+            console.log(error, `error`)
+            //handle error codes
+            if (error.status === 400) {
+                const errorData = await error.json()
+                console.log(errorData)
+                if (errorData.error.code === 1006) {
+                    setLocationError(errorData.error.message)
+                    console.log(`location error set`)
+                } else {
+                    setApiError(`API Error: ${errorData.error.message}`)
+                }
+            } else if (error.status === 401) {
+                setApiError("API key not provided or invalid.");
+            } else {
+                setApiError("An unexpected error occurred.");
+            }
+            console.log(error)
         } finally {
             setLoadingWeather(false)
         }
@@ -86,8 +102,8 @@ function WeatherPage() {
 
     return (
         <div>
-            <WeatherCard weatherData={weatherData} loadingWeather={loadingWeather} />
-            <LocationForm setWeatherLoaded={setWeatherLoaded} weatherAPIerror={error}/>
+            <WeatherCard weatherData={weatherData} loadingWeather={loadingWeather} apiError={apiError}/>
+            <LocationForm setWeatherLoaded={setWeatherLoaded} setLoadingWeather={setLoadingWeather} locationError={locationError} />
         </div>
     )
 }

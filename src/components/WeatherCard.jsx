@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularIndeterminate from './CircularIndeterminate';
+import WeatherCardContent from './WeatherCardContent';
 
 
 const bull = (
@@ -17,38 +18,18 @@ const bull = (
     </Box>
 );
 
-export default function WeatherCard({ weatherData, loadingWeather }) {
-
-    // console.log(weatherData)
-    let name, country, text, icon, wind_kph, humidity, wind_dir, temp_c;
-    if (weatherData) {
-    ({ location: { name, country }, current: { condition: { text, icon }, wind_kph, humidity, wind_dir, temp_c } } = weatherData)
-    }
-
+export default function WeatherCard({ weatherData, loadingWeather, apiError}) {
 
     return (
-        <Card sx={{ minWidth: 275, minHeight: 275, display: 'flex', justifyContent:'center', alignItems: 'center'}}>
-            {!weatherData || loadingWeather ? ( <CircularIndeterminate/> ) : 
-            ( <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    {name} {country}
+        <Card sx={{ minWidth: 275, minHeight: 275, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            {!weatherData || loadingWeather ? (
+            <CircularIndeterminate />
+            ) : (  !apiError  ? ( <WeatherCardContent weatherData = { weatherData }/>):
+                    (<CardContent>
+                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    {apiError}
                 </Typography>
-                <Typography variant="h5" component="div">
-                    {temp_c}°C
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    {text}
-                </Typography>
-                <Typography variant="body2">
-                Wind direction:{wind_dir}°,  
-                </Typography>
-                <Typography variant="body2"> 
-                Wind speed: {wind_kph},
-                </Typography>
-                <Typography variant="body2">
-                Humidity: {humidity}%,
-                </Typography>
-            </CardContent> )}
+                    </CardContent>))}
         </Card>
     );
 
