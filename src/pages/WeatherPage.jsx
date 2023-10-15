@@ -89,11 +89,11 @@ function WeatherPage() {
     }, [location])
 
     useEffect(() => {
-        console.log(weatherImageUrl && loaded)
-        if (weatherImageUrl) {
+        // console.log(weatherImageUrl && loaded)
+        if (weatherImageUrl && loaded) {
             setBackgroundImage(`url(${weatherImageUrl})`)
         }
-    }, [weatherImageUrl, loaded])
+    }, [weatherImageUrl])
 
     // console.log(weatherData)
 
@@ -101,6 +101,7 @@ function WeatherPage() {
 
         <div
             style={{
+                backgroundColor:'#F4F1DE',
                 backgroundImage: backgroundImage ? backgroundImage : "",
                 backgroundSize: 'cover',
                 width: '100vw',
