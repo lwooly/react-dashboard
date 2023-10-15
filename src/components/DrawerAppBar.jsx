@@ -55,7 +55,6 @@ function DrawerAppBar(props) {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
       <AppBar component="nav">
         <Toolbar>
           <IconButton
@@ -70,7 +69,7 @@ function DrawerAppBar(props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, textAlign: 'left' }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, textAlign: 'left', color: '#fff' }}
           >
             React Dashboard
           </Typography>
@@ -105,11 +104,6 @@ function DrawerAppBar(props) {
           {drawer}
         </Drawer>
       </nav>
-      {/* <Box component="main" sx={{ p: 3 }}>
-        <Toolbar />
-        <Typography>
-        </Typography>
-      </Box> */}
     </Box>
   );
 }

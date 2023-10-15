@@ -3,6 +3,8 @@ import { LocationContext } from "../contexts/Location.context";
 import ImgMediaCard from "../components/ImgMediaCard";
 import { buildNewsURL } from "../utilityFns/buildNewsURL";
 import CircularIndeterminate from "../components/CircularIndeterminate";
+import { Box } from "@mui/system";
+import ResponsiveGrid from "../components/ResponsiveGrid";
 
 
 const NewsPage = () => {
@@ -51,10 +53,10 @@ const [error, setError ] = useState(false)
         console.log(news)
 
     return (
-        <div>
+        <Box>
             {!news && <CircularIndeterminate/>}
-            {news && news.articles.map((article, i) => <ImgMediaCard key={i} values={article}/>)}
-        </div>
+            {news && <ResponsiveGrid news={news}/>}
+        </Box>
     );
 };
 
