@@ -2,14 +2,14 @@ import React, { createContext, useState, useCallback } from "react";
 
 export const LocationContext = createContext({
     fetchLocation: () => { },
-    setLocation: () => {},
+    setLocation: () => { },
     loading: false,
     loaded: false,
     error: null,
-    location:"",
+    location: "",
 })
 
-export const LocationProvider = ({children}) => {
+export const LocationProvider = ({ children }) => {
     const [location, setLocation] = useState()
     const [loading, setLoading] = useState(false)
     const [loaded, setLoaded] = useState(false)
@@ -56,9 +56,9 @@ export const LocationProvider = ({children}) => {
                 error,
                 location,
             }}
-            >
-                {children}
-            </LocationContext.Provider>
+        >
+            {children}
+        </LocationContext.Provider>
     )
 }
 

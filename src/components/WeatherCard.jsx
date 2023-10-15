@@ -18,18 +18,18 @@ const bull = (
     </Box>
 );
 
-export default function WeatherCard({ weatherData, loadingWeather, apiError}) {
+export default function WeatherCard({ weatherData, loadingWeather, apiError }) {
 
     return (
-        <Card sx={{ minWidth: 275, minHeight: 275, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Card sx={{ minWidth: 275, minHeight: 275, display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: 7}}>
             {!weatherData || loadingWeather ? (
-            <CircularIndeterminate />
-            ) : (  !apiError  ? ( <WeatherCardContent weatherData = { weatherData }/>):
-                    (<CardContent>
-                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    {apiError}
-                </Typography>
-                    </CardContent>))}
+                <CircularIndeterminate />
+            ) : (!apiError ? (<WeatherCardContent weatherData={weatherData} />) :
+                (<CardContent>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                        {apiError}
+                    </Typography>
+                </CardContent>))}
         </Card>
     );
 

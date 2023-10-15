@@ -19,7 +19,6 @@ import { NavLink } from 'react-router-dom';
 
 
 const drawerWidth = 240;
-const navItems = ['Weather', 'News'];
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -36,13 +35,18 @@ function DrawerAppBar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+          <ListItem disablePadding>
+            <ListItemButton  component={NavLink}
+              to={'/'}sx={{ textAlign: 'center' }}>
+              <ListItemText primary={'Weather'} />
             </ListItemButton>
           </ListItem>
-        ))}
+          <ListItem disablePadding>
+            <ListItemButton  component={NavLink}
+              to={'/news'}sx={{ textAlign: 'center' }}>
+              <ListItemText primary={'News'} />
+            </ListItemButton>
+          </ListItem>
       </List>
     </Box>
   );
@@ -71,16 +75,16 @@ function DrawerAppBar(props) {
             React Dashboard
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              <Button sx={{ color: '#fff' }}
+            <Button sx={{ color: '#fff' }}
               component={NavLink}
               to={'/'}>
-                Weather
-              </Button>
-              <Button sx={{ color: '#fff' }}
+              Weather
+            </Button>
+            <Button sx={{ color: '#fff' }}
               component={NavLink}
               to={'/news'}>
-                News
-              </Button>
+              News
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
@@ -101,11 +105,11 @@ function DrawerAppBar(props) {
           {drawer}
         </Drawer>
       </nav>
-      <Box component="main" sx={{ p: 3 }}>
+      {/* <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
         <Typography>
         </Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 }

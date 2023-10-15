@@ -11,7 +11,7 @@ const WeatherCardContent = ({weatherData}) => {
  const {location: { name, country }, current: { condition: { text, icon }, wind_kph, humidity, wind_dir, temp_c } } = weatherData
     
     return (
-        <CardContent>
+        <CardContent sx={{textAlign:'center'}}>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     {name} {country}
                 </Typography>

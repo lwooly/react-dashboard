@@ -7,15 +7,13 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import EditLocationIcon from '@mui/icons-material/EditLocation';
+import { Card } from '@mui/material';
 
 
 const LocationForm = ({ setWeatherLoaded, setLoadingWeather, locationError }) => {
     const { setLocation, location, fetchLocation } = useContext(LocationContext)
     const { register, handleSubmit, formState, formState: { errors }, reset, isSubmitting, isDirty, isValid } = useForm()
 
-    useEffect(() => {
-        console.log(formState)
-    })
 
     const onSubmitHandler = ({ location: newLocation }) => {
         if (newLocation) {
@@ -35,44 +33,45 @@ const LocationForm = ({ setWeatherLoaded, setLoadingWeather, locationError }) =>
     }
 
 
- const getErrorProps = () => {
-    if (locationError) {
-        return {error: true,
+    const getErrorProps = () => {
+        if (locationError) {
+            return {
+                error: true,
                 id: "outlined-error-helper-text",
                 label: "Error",
                 defaultValue: "",
-                helperText: "Invalid location."}
+                helperText: "Invalid location."
+            }
         } else {
             return {};
         }
     }
-    
- 
+
+
 
     return (
         <>
             <form onSubmit={handleSubmit(onSubmitHandler)}>
                 {/* <input {...register('location', {required:true})} /> */}
-                <div>
-                    <Box sx={{ '& > :not(style)': { m: 1 } }}>
-                        <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                            <IconButton onClick={handleCurrentLocationClick}>
-                                <EditLocationIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                            </IconButton>
-                            <TextField 
-                            id="input-with-sx" 
-                            label="Edit location" 
+                <Card sx={{ minWidth: 275, borderRadius: 7, mt: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'flex-end', backgroundColor: `white`, p: 0.5, borderRadius: 7 }}>
+                        <IconButton onClick={handleCurrentLocationClick}>
+                            <EditLocationIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                        </IconButton>
+                        <TextField
+                            id="input-with-sx"
+                            label="Edit location"
                             variant="standard"
                             autoComplete='off'
-                            {...register("location")} 
+                            {...register("location")}
                             {...getErrorProps()}
-                            />
-                            <IconButton type='submit' sx={{ mr: 1, my: 0.5 }}>
-                                <ArrowForwardIcon />
-                            </IconButton>
-                        </Box>
+                        />
+                        <IconButton type='submit' sx={{ mr: 1, my: 0.5 }}>
+                            <ArrowForwardIcon />
+                        </IconButton>
                     </Box>
-                </div>
+
+                </Card>
             </form>
         </>
     );

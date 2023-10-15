@@ -2,26 +2,10 @@ import { useEffect, useState, useContext } from "react"
 import { buildWeatherURL } from "../utilityFns/buildWeatherURL";
 import WeatherCard from "../components/WeatherCard";
 import { LocationContext } from "../contexts/Location.context";
+import { WeatherImageContext } from "../contexts/WeatherImage.context";
 import InputWithIcon from "../components/InputWithIcon";
 import LocationForm from "../components/Form/LocationForm";
-
-
-// const defaultWeather = {
-//     location: {
-//       name: "",
-//       country: ""
-//     },
-//     current: {
-//       condition: {
-//         text: "",
-//         icon: ""
-//       },
-//       wind_kph: "",
-//       humidity: "",
-//       wind_dir: "",
-//       temp_c: ""
-//     }
-//   }
+import { Box, Grow } from "@mui/material";
 
 function WeatherPage() {
 
@@ -31,9 +15,11 @@ function WeatherPage() {
     const [loaded, setWeatherLoaded] = useState(false);
     const [locationError, setLocationError] = useState(null);
     const [apiError, setApiError] = useState(null);
+    const [backgroundImage, setBackgroundImage] = useState()
 
     //context
     const { fetchLocation, location } = useContext(LocationContext)
+    const { weatherImageUrl, fetchWeatherImage, setImageSearchText } = useContext(WeatherImageContext)
     // console.log(`Location:`, location)
 
 
@@ -60,10 +46,12 @@ function WeatherPage() {
             }
             const data = await response.json()
             setWeatherData(data)
+            console.log(data)
             //set error codes to null
             setApiError(null);
             setLocationError(null)
             setWeatherLoaded(true)
+            setImageSearchText(data.current.condition.text)
 
         } catch (error) {
             console.log(error, `error`)
@@ -95,16 +83,39 @@ function WeatherPage() {
     useEffect(() => {
         if (location) {
             fetchWeatherData()
+            fetchWeatherImage()
         }
     }, [location])
+
+    useEffect(() => {
+        if (weatherImageUrl) {
+            setBackgroundImage(`url(${weatherImageUrl})`)
+        }
+    }, [weatherImageUrl])
 
     // console.log(weatherData)
 
     return (
-        <div>
-            <WeatherCard weatherData={weatherData} loadingWeather={loadingWeather} apiError={apiError}/>
-            <LocationForm setWeatherLoaded={setWeatherLoaded} setLoadingWeather={setLoadingWeather} locationError={locationError} />
-        </div>
+
+        <div
+            style={{
+                backgroundImage: backgroundImage ? backgroundImage : "",
+                backgroundSize: 'cover',
+                width: '100vw',
+                height: '100vh',
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center'
+            }}
+        >
+            <Box sx={{ maxWidth: 300, maxHeight: 300, display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow:1}}>
+                <Box>
+                <WeatherCard weatherData={weatherData} loadingWeather={loadingWeather} apiError={apiError} sx={{ maxWidth: 100, height: 100 }} />
+                <LocationForm setWeatherLoaded={setWeatherLoaded} setLoadingWeather={setLoadingWeather} locationError={locationError} />
+                </Box>
+            </Box>
+
+        </div >
     )
 }
 
