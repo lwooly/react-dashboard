@@ -40,7 +40,7 @@ function WeatherPage() {
             const response = await fetch(weatherAPIurl)
 
             // Simulate a longer loading time with a timeout
-            await new Promise(resolve => setTimeout(resolve, 500)); // 0.5 seconds delay
+            // await new Promise(resolve => setTimeout(resolve, 500)); // 0.5 seconds delay
             if (!response.ok) {
                 throw response
             }
