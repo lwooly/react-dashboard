@@ -84,14 +84,16 @@ function WeatherPage() {
         if (location) {
             fetchWeatherData()
             fetchWeatherImage()
+            console.log('rerendered due to location update')
         }
     }, [location])
 
     useEffect(() => {
+        console.log(weatherImageUrl && loaded)
         if (weatherImageUrl) {
             setBackgroundImage(`url(${weatherImageUrl})`)
         }
-    }, [weatherImageUrl])
+    }, [weatherImageUrl, loaded])
 
     // console.log(weatherData)
 

@@ -5,14 +5,18 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Box, margin } from '@mui/system';
 import { Link } from 'react-router-dom';
 
 export default function ImgMediaCard({values:{content, description, image, publishedAt, source, title, url}}) {
 
   return (
-    <Card sx={{ maxWidth: 345, mb: 3, height:'100%'}}
+    <Box
     component={Link}
-    to={'https://www.google.com/search?q=website+theme+colors&oq=&gs_lcrp=EgZjaHJvbWUqCQgAEEUYOxjCAzIJCAAQRRg7GMIDMgkIARBFGDsYwgMyCQgCEEUYOxjCAzIJCAMQRRg7GMIDMgkIBBBFGDsYwgMyCQgFEEUYOxjCAzIJCAYQRRg7GMIDMgkIBxBFGDsYwgPSAQo4NjA0MDJqMGo3qAIIsAIB&sourceid=chrome&ie=UTF-8'}>
+    to={url}
+    sx={{ textDecoration: 'none' }}
+    >
+    <Card sx={{ maxWidth: 345, mb: 3, height:'100%'}}>
       <CardMedia
         component="img"
         alt={description}
@@ -23,14 +27,11 @@ export default function ImgMediaCard({values:{content, description, image, publi
         <Typography gutterBottom variant="h5" component="div">
           {title}
         </Typography>
-        {/* <Typography variant="body2" color="text.secondary">
-          {content}
-        </Typography> */}
+        <Typography variant="body2" color="text.secondary">
+          {source.name}
+        </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
+    </Box>
   );
 }
