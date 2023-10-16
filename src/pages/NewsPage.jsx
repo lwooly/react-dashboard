@@ -59,7 +59,7 @@ const NewsPage = () => {
     return (
         <>
             {news && 
-            <Box sx={{m:3, marginTop: 15, }}>
+            <Box sx={{m:3, marginTop: 10, }}>
                 <ResponsiveGrid news={news} sx={{ m: 4 }} />
             </Box>}
             

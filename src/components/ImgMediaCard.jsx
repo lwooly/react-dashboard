@@ -16,7 +16,7 @@ export default function ImgMediaCard({values:{content, description, image, publi
     to={url}
     sx={{ textDecoration: 'none' }}
     >
-    <Card sx={{ maxWidth: 345, mb: 3, height:'100%'}}>
+    <Card sx={{ maxWidth: 345, mb: 3, height:'100%', borderRadius: 7}}>
       <CardMedia
         component="img"
         alt={description}

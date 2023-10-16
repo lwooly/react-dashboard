@@ -8,7 +8,7 @@ const Layout = ({children}) => {
         <header>
             <Header/>
         </header>
-        <main style={{marginTop: 54}}>
+        <main style={{paddingTop: 25, backgroundColor:'#F4F1DE'}}>
             {children}
         </main>
         </>
