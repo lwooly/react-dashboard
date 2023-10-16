@@ -19,7 +19,7 @@ export default function ResponsiveGrid({ news }) {
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 9, md: 12 }}>
                 {news.articles.map((article, i) => {
                     return (
-                    <Grid xs={4} sm={3} md={3} key={i}>
+                    <Grid xs={4} sm={3} md={3} key={i} sx={{display:'flex', justifyContent:'center'}}>
                         <ImgMediaCard values={article} />
                     </Grid> )})}
             </Grid>

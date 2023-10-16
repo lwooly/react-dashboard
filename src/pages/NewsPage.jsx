@@ -19,6 +19,7 @@ const NewsPage = () => {
     const { location, fetchLocation } = useContext(LocationContext)
     const fetchNews = async (location) => {
 
+
         if (loaded || loading || error) {
             return;
         }
@@ -26,6 +27,7 @@ const NewsPage = () => {
         try {
             setLoading(true)
             const response = await fetch(buildNewsURL())
+            await new Promise(resolve => setTimeout(resolve, 1000)); // 1 seconds delay
             if (!response.ok) {
                 throw response
             }
@@ -53,20 +55,26 @@ const NewsPage = () => {
         }
     }, [location])
 
-    console.log(news)
 
     return (
-        <Box sx={{ mx: 3, marginTop: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-            <Box sx={{ width: '25%' }} >
-                {error && <Typography>
-                    API Error: {error.errors[0]}
-                </Typography>}
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt:2 }}>
-                    {!news && <CircularIndeterminate />}
+        <>
+            {news && 
+            <Box sx={{m:3, marginTop: 10, }}>
+                <ResponsiveGrid news={news} sx={{ m: 4 }} />
+            </Box>}
+            
+            {!news &&
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+                    {loading && <CircularIndeterminate />}
+                    {error &&
+                    <Box sx={{ width: '25%' }} >
+                         <Typography>
+                            API Error: {error.errors[0]}
+                        </Typography>
+                        </Box>}
                 </Box>
-            </Box>
-            {news && <ResponsiveGrid news={news} />}
-        </Box>
+            }
+        </>
     );
 };
 
