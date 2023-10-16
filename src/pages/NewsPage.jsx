@@ -27,7 +27,7 @@ const NewsPage = () => {
         try {
             setLoading(true)
             const response = await fetch(buildNewsURL())
-            await new Promise(resolve => setTimeout(resolve, 1000)); // 1 seconds delay
+            // await new Promise(resolve => setTimeout(resolve, 1000)); // 1 seconds delay
             if (!response.ok) {
                 throw response
             }
